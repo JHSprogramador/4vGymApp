@@ -1,0 +1,17 @@
+# Nombre del Proyecto
+
+Descripción breve del proyecto.
+
+## Requisitos
+
+Este proyecto requiere:
+
+- Node.js y npm
+- Angular CLI
+- Tailwind CSS
+- Angular Material
+
+## Instalación
+
+Para instalar las dependencias del proyecto, ejecuta el siguiente comando en la raíz del proyecto:
+
