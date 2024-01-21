@@ -1,0 +1,123 @@
+<!-- Sección de búsqueda y botón de agregar -->
+<!-- Sección de búsqueda y botón de agregar -->
+<div class="flex items-center justify-between mt-10 ml-10 mr-10">
+    <div class="relative mt-2">
+        <div class="flex items-center">
+            <input type="text" name="search" id="search"
+                class="block w-full rounded-md border-2 border-gray-300 py-1.5 pl-7 pr-10 text-black placeholder:text-black focus:outline-none focus:border-amber-600 sm:text-sm sm:leading-5"
+                placeholder="Buscar..." aria-describedby="searcher" [(ngModel)]="searchTerm">
+            <button type="button"
+                class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-500 focus:outline-none focus:text-gray-600"
+                aria-label="Buscar" (click)="updateMonitors()">
+                <i class="fa-solid fa-search"></i>
+            </button>
+        </div>
+    </div>
+    <button type="button" class="ml-auto px-4 py-2 bg-red-500 text-white rounded-md" (click)="openModal()">
+        <i class="fa-solid fa-plus"></i> Añadir
+    </button>
+</div>
+<!-- Slider de monitores -->
+<div *ngIf="filteredMonitors && filteredMonitors.length > 0" class="mt-10  ">
+    <p-carousel [value]="filteredMonitors" [numVisible]="numVisible" [numScroll]="1" [circular]="true">
+        <ng-template let-monitor pTemplate="item">
+            <div class="mt-5 ml-10 mr-10 rounded overflow-hidden shadow-lg bg-gray-300 cursor-pointer max-w-xs w-full"
+                (click)="openModalDetails(monitor)">
+                <!-- Contenido de cada card -->
+                <div class="text-center mt-10 text-black text-8xl">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2 text-center">{{ monitor.nombre }}</div>
+                </div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+<!-- Si no hay monitores, muestra un mensaje -->
+<div *ngIf="!monitors || monitors.length === 0" class="text-center mt-5 text-red-600 mt-5 ml-10 mr-10">
+    <p class="text-2xl font-bold">¡Oops!</p>
+    <p>No hay monitores disponibles en este momento.</p>
+</div>
+
+
+<!-- Modal para ver detalles de monitores -->
+<div *ngIf="isDetailsModalOpen" class="fixed inset-0 overflow-y-auto modal-container">
+    <!-- ... (código existente) ... -->
+    <div
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="bg-gray-50 px-4 py-5 sm:p-6">
+            <!-- Contenido del modal de detalles -->
+            <div class="text-center text-amber-600">
+                <i class="fa-solid fa-user text-8xl"></i>
+                <i class="fa-solid fa-info-circle ml-2"></i>
+            </div>
+            <div class="mb-4">
+                <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                <span>{{ selectedMonitor?.nombre }}</span>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                <span>{{ selectedMonitor?.email }}</span>
+            </div>
+            <div class="mb-4">
+                <label for="telefono" class="block text-gray-700 text-sm font-bold mb-2">Teléfono:</label>
+                <span>{{ selectedMonitor?.telefono }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="button" class="px-4 py-2 bg-blue-600 text-white rounded-md" (click)="openEditModal()">
+                    <i class="fa-solid fa-pencil-alt"></i> Editar
+                </button>
+                <button type="button" class="px-4 py-2 bg-red-600 text-white rounded-md"
+                    (click)="selectedMonitor && deleteMonitor(selectedMonitor)">
+                    <i class="fa-solid fa-trash-alt"></i> Borrar
+                </button>
+                <button type="button" class="px-4 py-2 text-gray-500" (click)="closeDetailsModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para añadir o editar monitores -->
+<div *ngIf="isModalOpen" class="fixed inset-0 overflow-y-auto modal-container">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-gray-50 px-4 py-5 sm:p-6">
+                <!-- Contenido del formulario en el modal -->
+                <form (submit)="addMonitor()">
+                    <div class="text-center text-amber-600">
+                        <i class="fa-solid fa-user text-8xl"></i>
+                        <i class="fa-solid fa-plus ml-2"></i>
+                    </div>
+                    <div class="mb-4">
+                        <label for="nombre" class="block text-gray-700 text-sm font-bold mb-2">Nombre:</label>
+                        <input type="text" [(ngModel)]="newMonitor.nombre" id="nombre" name="nombre"
+                            class="block w-full rounded-md border-2 border-gray-300 py-1.5 px-2 text-black placeholder:text-black focus:outline-none focus:border-amber-600 sm:text-sm sm:leading-5">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+                        <input type="email" [(ngModel)]="newMonitor.email" id="email" name="email"
+                            class="block w-full rounded-md border-2 border-gray-300 py-1.5 px-2 text-black placeholder:text-black focus:outline-none focus:border-amber-600 sm:text-sm sm:leading-5">
+                    </div>
+                    <div class="mb-4">
+                        <label for="telefono" class="block text-gray-700 text-sm font-bold mb-2">Teléfono:</label>
+                        <input type="tel" [(ngModel)]="newMonitor.telefono" id="telefono" name="telefono"
+                            class="block w-full rounded-md border-2 border-gray-300 py-1.5 px-2 text-black placeholder:text-black focus:outline-none focus:border-amber-600 sm:text-sm sm:leading-5">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="button" class="px-4 py-2 bg-amber-600 text-white rounded-md" (click)="addMonitor()">
+                        {{ ['isEditing'] ? 'Editar' : 'Aceptar' }}
+                        </button>
+                        <button type="button" class="px-4 py-2 text-gray-500" (click)="closeModal()">Cancelar</button>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

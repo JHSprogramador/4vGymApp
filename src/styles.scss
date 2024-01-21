@@ -1,0 +1,53 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material'as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$angular-hola-clase-primary: mat.define-palette(mat.$indigo-palette);
+$angular-hola-clase-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$angular-hola-clase-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$angular-hola-clase-theme: mat.define-light-theme((color: (primary: $angular-hola-clase-primary,
+      accent: $angular-hola-clase-accent,
+      warn: $angular-hola-clase-warn,
+    )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($angular-hola-clase-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+//! Importante he usado material y tailwindcss y primeNG y fontawesome para los iconos , los estilos de material los he puesto en el app.module.ts y los de tailwind los he puesto aqui en el styles.scss
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import '@fortawesome/fontawesome-free/css/all.css';
+@import 'primeng/resources/themes/saga-blue/theme.css';
+@import 'primeng/resources/primeng.min.css';
+@import 'primeicons/primeicons.css';
+
+//Todo borrar que se me quedo de cuando lo pille de google para lod el tailwind
+//     lo dejor po si a caso valla a ser que lo necesite 
+//     (esto no es correcto porque no deberia haber tanto comentatario)
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

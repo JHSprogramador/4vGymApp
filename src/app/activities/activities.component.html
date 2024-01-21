@@ -1,0 +1,201 @@
+<div class="flex flex-wrap ">
+    <!-- Actividades (Mitad Izquierda) -->
+    <div class="w-full md:w-1/2">
+        <div class="mr-10">
+            <div class="flex justify-between items-center mt-10">
+                <button class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded" (click)="prevDay()">
+                    <p>
+                        << </p>
+                </button>
+                <p class="text-center" [ngClass]="{'text-red-500': defaultMessage === 'Ninguno Seleccionado'}">
+                    {{defaultMessage}}
+                </p>
+                <button class="bg-red-600 hover:bg-red-400 text-white font-bold py-2 px-4 rounded" (click)="nextDay()">
+                    <p>>></p>
+                </button>
+            </div>
+            <table class="w-full mt-10" *ngIf="defaultMessage !='Ninguno Seleccionado'">
+                <!-- primera actividad -->
+                <tr>
+                    <td class="w-12">10:00 11:30</td>
+                    <td class="bg-green-400 h-20 relative border-green-400 hover:border-black border-2"
+                    [ngClass]="{'bg-red-400': !act1}">
+                        <ng-container *ngIf="act1; else free1">
+                                <div class="flex items-center">
+                                    <div>
+                                        <ng-container *ngFor="let monitor of activity1.monitor">
+                                            <i class="fas fa-user-alt text-4xl text-black "></i>
+                                            <p class="font-bold text-lg">{{ monitor.nombre }}</p>
+                                        </ng-container>
+                                    </div>
+
+                                    <div class="ml-auto mr-auto text-black font-bold">
+                                        {{activity1.tipo}}<img src="../../assets/{{activity1.tipo}}.png"
+                                            alt="Imagen de {{activity1.tipo}}" class="w-16 h-16">
+                                    </div>
+                                </div>
+                                <button class="absolute top-0 right-0 mt-2 mr-2 text-lg text-bold text-black bg-black rounded-xl">
+                                    <i class="fa-solid fa-trash-alt rounded-lg text-white" (click)="deleteActivity(activity1)"></i>
+                                </button>
+                                <button class="absolute top-8 right-0 mt-2 mr-2 text-lg text-bold text-black bg-black rounded-xl">
+                                    <i class="fa-solid fa-pencil text-white" (click)="editActivity(activity1, hour1)"></i>
+                                </button>
+                            </ng-container>
+                        <ng-template #free1>
+                            <div class="flex justify-center items-center h-full text-white font-bold">
+                                FREE
+                                <button class="absolute top-0 right-0 mt-2 mr-2 text-xl text-bold text-black"
+                                    (click)="openModal(hour1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+                <br>
+                <!-- ... (resto de tu código de actividades) ... -->
+                <!-- segunda actividad -->
+                <tr>
+                    <td class="w-12">13:30 15:00</td>
+                    <td class="bg-green-400 h-20 relative border-green-400 hover:border-black border-2"
+                    [ngClass]="{'bg-red-400': !act2}">
+                        <ng-container *ngIf="act2; else free2">
+                            <div class="flex items-center">
+                                <div>
+                                    <ng-container *ngFor="let monitor of activity2.monitor">
+                                        <i class="fas fa-user-alt text-4xl text-black"></i>
+                                        <p class="font-bold text-lg">{{ monitor.nombre }}</p>
+                                    </ng-container>
+                                </div>
+
+                                <div class="ml-auto mr-auto text-black font-bold">
+                                    {{activity2.tipo}}<img src="../../assets/{{activity2.tipo}}.png" alt="Imagen de {{activity2.tipo}}"
+                                        class="w-16 h-16">
+                                </div>
+                            </div>
+                            <button class="absolute top-0 right-0 mt-2 mr-2 text-lg text-bold text-black bg-black rounded-xl">
+                                <i class="fa-solid fa-trash-alt rounded-lg text-white" (click)="deleteActivity(activity2)"></i>
+                            </button>
+                            <button class="absolute top-8 right-0 mt-2 mr-2 text-lg text-bold text-black bg-black rounded-xl">
+                                <i class="fa-solid fa-pencil text-white" (click)="editActivity(activity2, hour2)"></i>
+                            </button>
+                        </ng-container>
+                        <ng-template #free2>
+                            <div class="flex justify-center items-center h-full text-white font-bold">
+                                FREE
+                                <button class="absolute top-0 right-0 mt-2 mr-2 text-xl text-bold text-black"
+                                    (click)="openModal(hour2)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+                <br>
+
+                <tr>
+                    <td class="w-12">17:30 19:00</td>
+                    <td class="bg-green-400 h-20 relative border-green-400 hover:border-black border-2"
+                    [ngClass]="{'bg-red-400': !act3}">
+                        <!--!  muestra lo que hay en act3 y sino el libre "Free3" que es lo mismo que "Free" -->
+                        <ng-container *ngIf="act3; else free3">
+                            <div class="flex items-center">
+                                <div>
+                                    <ng-container *ngFor="let monitor of activity3.monitor">
+                                        <i class="fas fa-user-alt text-4xl text-black"></i>
+                                        <p class="font-bold text-lg">{{ monitor.nombre }}</p>
+                                    </ng-container>
+                                </div>
+
+                                <div class="ml-auto mr-auto text-black font-bold">
+                                    {{activity3.tipo}}<img src="../../assets/{{activity3.tipo}}.png"
+                                        alt="Imagen de {{activity3.tipo}}" class="w-16 h-16">
+                                </div>
+                            </div>
+                            <!-- botones de edicion y eliminar -->
+                            <button class="absolute top-0 right-0 mt-2 mr-2 text-lg text-bold text-black bg-black rounded-xl">
+                                <i class="fa-solid fa-trash-alt rounded-lg text-white" (click)="deleteActivity(activity3)"></i>
+                            </button>
+                            <button class="absolute top-8 right-0 mt-2 mr-2 text-lg text-bold text-black bg-black rounded-xl">
+                                <i class="fa-solid fa-pencil text-white" (click)="editActivity(activity3, hour3)"></i>
+                            </button>
+                        </ng-container>
+                        <ng-template #free3>
+                            <div class="flex justify-center items-center h-full text-white font-bold">
+                                FREE
+                                <button class="absolute top-0 right-0 mt-2 mr-2 text-xl text-bold text-black"
+                                    (click)="openModal(hour3)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Calendario (Mitad Derecha) -->
+    <div class="w-full md:w-1/3 mb-9">
+        <mat-card class=" demo-inline-calendar-card">
+            <mat-calendar class="custom-calendar text-red-600" [(selected)]="date" (selectedChange)="onDateChange()">
+            </mat-calendar>
+        </mat-card>
+    </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="fixed inset-0 overflow-y-auto modal-container z-50">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- ... (resto de tu código del modal) ... -->
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div
+            class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-gray-50 px-4 py-5 sm:p-6">
+                <form (submit)="addActivity()">
+                    <div class="mb-4">
+                        <label for="tipoActividad" class="block text-gray-700 text-sm font-bold mb-2">Tipo
+                            actividad</label>
+                        <select id="tipoActividad" name="tipoActividad"
+                            class="block w-full rounded-md border-2 border-rebg-red-600 py-1.5 px-2 text-black placeholder:text-black focus:outline-none focus:border-rebg-red-600 sm:text-sm sm:leading-5"
+                            [(ngModel)]="newActivity.tipo" required>
+                            <ng-container *ngFor="let activity of activityTypes">
+                                <option [value]="activity">{{ activity }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="monitor1" class="block text-gray-700 text-sm font-bold mb-2">Monitor 1</label>
+                        <select id="monitor1" name="monitor1"
+                            class="block w-full rounded-md border-2 border-rebg-red-600 py-1.5 px-2 text-black placeholder:text-black focus:outline-none focus:border-rebg-red-600 sm:text-sm sm:leading-5"
+                            [(ngModel)]="idMonitor1" required>
+                            <!--  tambien debe poder no poner un monitor aqui asi puede haber uno porque el primero no pueda asistir y el segudo ocupa su puesto como segundo monitor no como primero -->
+                            <option value="ninguno">Ninguno</option>
+                            <ng-container *ngFor="let monitor of monitors">
+                                <option [value]="monitor.id">{{ monitor.nombre }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="monitorN" class="block text-gray-700 text-sm font-bold mb-2">Monitor 2:</label>
+                        <select id="monitorN" name="monitorN"
+                            class="block w-full rounded-md border-2 border-rebg-red-600 py-1.5 px-2 text-black placeholder:text-black focus:outline-none focus:border-rebg-red-600 sm:text-sm sm:leading-5"
+                            [(ngModel)]="idMonitor2" required>
+                            <option value="ninguno">Ninguno</option>
+                            <ng-container *ngFor="let monitor of monitors">
+                                <option [value]="monitor.id">{{ monitor.nombre }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-400 bg-gradient-to-b">Aceptar</button>
+                        <button type="button" class="px-4 py-2 bg-blue-600 text-white hover:bg-purple-500 bg-gradient-to-b" (click)="closeModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

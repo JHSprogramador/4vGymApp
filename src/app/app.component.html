@@ -1,0 +1,19 @@
+<!-- <div style="text-align:center">
+  <h1> {{ title }}! </h1>
+  <diw-activities></diw-activities>
+  <diw-activities-form></diw-activities-form>
+  <diw-activities-form-reactive></diw-activities-form-reactive>
+ </div>  -->
+<!-- <h1>Angular Router App</h1>
+<nav>
+  <ul>
+    <li><a routerLink="/list-activities" routerLinkActive="active" ariaCurrentWhenActive="page">Listar Actividades</a></li>
+    <li><a routerLink="/create-activity" routerLinkActive="active" ariaCurrentWhenActive="page">Crear Actividades</a></li>
+  </ul>
+</nav>
+<router-outlet></router-outlet> -->
+<diw-header></diw-header>
+<diw-activities *ngIf="selectedOption === 'activities'"></diw-activities>
+<app-monitors *ngIf="selectedOption === 'monitors'"></app-monitors>
+<app-footer-tabs (optionSelected)="updateSelectedOption($event)"></app-footer-tabs>
+
