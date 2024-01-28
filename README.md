@@ -52,6 +52,11 @@ Asegúrate de tener instalados los siguientes elementos antes de ejecutar el pro
     ```bash
     ng serve
     ```
+4. **Si no se ejecuta corectamente y da un error de que no permite por algun problema de permisos utiliza este comando:**
+
+    ```bash
+    Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass 
+    ```
 
     Abre tu navegador y visita [http://localhost:4200/](http://localhost:4200/)
 
