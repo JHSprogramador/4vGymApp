@@ -37,14 +37,12 @@
 
 <!-- Si no hay monitores, muestra un mensaje -->
 <div *ngIf="!monitors || monitors.length === 0" class="text-center mt-5 text-red-600 mt-5 ml-10 mr-10">
-    <p class="text-2xl font-bold">¡Oops!</p>
-    <p>No hay monitores disponibles en este momento.</p>
+    <p>No hay monitores .</p>
 </div>
 
 
 <!-- Modal para ver detalles de monitores -->
 <div *ngIf="isDetailsModalOpen" class="fixed inset-0 overflow-y-auto modal-container">
-    <!-- ... (código existente) ... -->
     <div
         class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
         <div class="bg-gray-50 px-4 py-5 sm:p-6">
